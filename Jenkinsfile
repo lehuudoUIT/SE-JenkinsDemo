@@ -1,6 +1,8 @@
 pipeline {
   agent any
-
+  tools {
+    nodejs '19.4.0'
+  }
   stages {
     stage('Clone Repository') {
       steps {
@@ -8,17 +10,17 @@ pipeline {
       }
     }
 
-    // stage('Install Dependencies') {
-    //   steps {
-    //     sh 'npm install'
-    //   }
-    // }
+    stage('Install Dependencies') {
+      steps {
+        sh 'npm install'
+      }
+    }
 
-    // stage('Run Unit Tests') {
-    //   steps {
-    //     sh 'npm test'
-    //   }
-    // }
+    stage('Run Unit Tests') {
+      steps {
+        sh 'npm test'
+      }
+    }
 
     // stage('Build Docker Image') {
     //   steps {

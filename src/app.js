@@ -11,7 +11,7 @@ app.post("/sum", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-  res.json({ message: "hello work yea yea" });
+  res.json({ message: "hello work yea yea co npm r ne" });
 });
 
 const PORT = process.env.PORT || 3000;
