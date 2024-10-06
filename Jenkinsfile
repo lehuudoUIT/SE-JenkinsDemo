@@ -1,8 +1,5 @@
 pipeline {
   agent any
-  tools {
-    nodejs '19.4.0'
-  }
   stages {
     stage('Clone Repository') {
       steps {
@@ -10,30 +7,14 @@ pipeline {
       }
     }
 
-    stage('Install Dependencies') {
+    stage('Build and push to dockerhub') {
       steps {
-        sh 'npm install'
+        withDockerRegistry(credentialsId: 'lehuudouit-dockerhub', url: 'https://index.docker.io/v1/') {
+          sh 'docker build -t lehuudouit/jekin-demo:v1.0 .'
+          sh 'docker push lehuudouit/jekin-demo:v1.0'
+        }
       }
     }
-
-    stage('Run Unit Tests') {
-      steps {
-        sh 'npm test'
-      }
-    }
-
-    // stage('Build Docker Image') {
-    //   steps {
-    //     sh 'docker build -t sum-app .'
-    //   }
-    // }
-
-    // stage('Run Docker Container') {
-    //   steps {
-    //     sh 'docker run -d -p 3000:3000 sum-app'
-    //   }
-    // }
-  }
 
   // post {
   //   always {

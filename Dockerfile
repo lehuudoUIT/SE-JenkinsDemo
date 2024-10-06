@@ -1,18 +1,39 @@
-# Dockerfile
-FROM node:14-alpine
+# Stage 1: Install dependencies and run tests
+FROM node:18 AS build
 
-# Create app directory
-WORKDIR /usr/src/app
+# Set working directory
+WORKDIR /app
 
-# Install app dependencies
+# Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# Copy the source code
+# Copy all other source code
 COPY . .
 
-# Expose the port
+# Run tests
+RUN npm test
+
+# Build the app
+RUN npm run build
+
+# Stage 2: Create a lightweight production image
+FROM node:18-alpine
+
+# Set working directory
+WORKDIR /app
+
+# Copy the built app from the previous stage
+COPY --from=build /app/build /app/build
+
+# Install only production dependencies
+COPY package*.json ./
+RUN npm install --only=production
+
+# Expose the app port (e.g., 3000)
 EXPOSE 3000
 
-# Start the application
+# Start the app
 CMD ["npm", "start"]
