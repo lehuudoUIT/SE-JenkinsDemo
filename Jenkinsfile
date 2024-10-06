@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone Repository') {
       steps {
-        git 'https://github.com/yourusername/sum-app.git'
+        git 'https://github.com/lehuudoUIT/SE-JenkinsDemo.git'
       }
     }
 
@@ -20,23 +20,23 @@ pipeline {
       }
     }
 
-    stage('Build Docker Image') {
-      steps {
-        sh 'docker build -t sum-app .'
-      }
-    }
+    // stage('Build Docker Image') {
+    //   steps {
+    //     sh 'docker build -t sum-app .'
+    //   }
+    // }
 
-    stage('Run Docker Container') {
-      steps {
-        sh 'docker run -d -p 3000:3000 sum-app'
-      }
-    }
+    // stage('Run Docker Container') {
+    //   steps {
+    //     sh 'docker run -d -p 3000:3000 sum-app'
+    //   }
+    // }
   }
 
-  post {
-    always {
-      echo 'Cleaning up Docker containers...'
-      sh 'docker container prune -f'
-    }
-  }
+  // post {
+  //   always {
+  //     echo 'Cleaning up Docker containers...'
+  //     sh 'docker container prune -f'
+  //   }
+  // }
 }
