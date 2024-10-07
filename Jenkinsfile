@@ -12,9 +12,9 @@ pipeline {
       steps {
         withDockerRegistry(credentialsId: 'lehuudouit-dockerhub', url: 'https://index.docker.io/v1/') {
           //* Build image
-          sh 'docker build -t lehuudouit/jekin-demo:v1.0 .'
+          sh 'docker build -t lehuudouit/jekin-demo:v1.1 .'
           //* Push image to docker hub
-          sh 'docker push lehuudouit/jekin-demo:v1.0'
+          sh 'docker push lehuudouit/jekin-demo:v1.1'
         }
       }
     }
